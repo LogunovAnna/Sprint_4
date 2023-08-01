@@ -1,13 +1,9 @@
 
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.by import By
 
 
 class BasePage:
-
-    Order_Up_Button = By.XPATH, "//button[@class='Button_Button__ra12g' and text()='Заказать']"  # Верхняя кнопка "Заказать" на главной странице
-    Order_Header = By.XPATH, "//div[text()='Для кого самокат']"  # Заголовок "Для кого самокат" на странице оформления заказа
 
     def __init__(self, driver):
         self.driver = driver
@@ -27,3 +23,6 @@ class BasePage:
 
     def element_is_enabled(self, locator):
         return self.driver.find_element(*locator).is_enabled()
+
+    def switch_to_new_window(self):
+        self.driver.switch_to.window(self.driver.window_handles[-1])

@@ -1,6 +1,7 @@
 
 import pytest
 from pages.main_page import MainPage
+from data import answers
 
 
 def test_click_logo_scooter_get_main_page(driver):
@@ -29,5 +30,4 @@ def test_click_question_get_answer(driver, questions_number):
     scooter_main_page.go_to_element(scooter_main_page.Questions_Header)
     scooter_main_page.element_wait_for_load(scooter_main_page.Questions_Header)
     scooter_main_page.element_click(scooter_main_page.get_question(questions_number))
-    scooter_main_page.element_wait_for_load(scooter_main_page.get_answer(questions_number))
-    assert scooter_main_page.element_is_enabled(scooter_main_page.get_answer(questions_number))
+    assert answers[questions_number] in scooter_main_page.get_answer(questions_number)

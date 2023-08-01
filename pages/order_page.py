@@ -1,10 +1,12 @@
-from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
+from pages.main_page import MainPage
 
 
 class OrderPage(BasePage):
-    Order_Down_Button = By.CLASS_NAME, "Home_FinishButton__1_cWm"   # Нижняя кнопка "Заказать" на главной странице
-    order_locator = [BasePage.Order_Up_Button, Order_Down_Button]   # Объединенный локатор верхней и нижней кнопки "Заказать для параметризации"
+
+    Order_Down_Button = By.XPATH, "//button[contains(@class, 'Button_Middle_') and text() ='Заказать']"
+    order_locator = [MainPage.Order_Up_Button, Order_Down_Button]   # Объединенный локатор верхней и нижней кнопки "Заказать для параметризации"
     User_Name = By.XPATH, "//input[@placeholder='* Имя']"   # Поле ввода Имени на странице заказа
     User_Surname = By.XPATH, "//input[@placeholder='* Фамилия']"    # Поле ввода Фамилии на странице заказа
     User_Address = By.XPATH, "//input[@placeholder='* Адрес: куда привезти заказ']"  # Поле ввода Адреса на странице заказа
@@ -23,6 +25,9 @@ class OrderPage(BasePage):
     Order_Confirm_Button = By.XPATH, "//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Заказать']"   # Финальная кнопка "Заказть" на странице оформления заказа
     Confirm_Button = By.XPATH,  "//button[text()='Да']"    # Кнопка "Да" - подтверждение оформления заказа
     Confirm_Order_Header = By.CLASS_NAME, "Order_ModalHeader__3FDaJ"    # Заголовок "Заказ оформлен" в окне с подтверждением оформления заказа
+
+    def get_order_page(self):
+        self.driver.get("https://qa-scooter.praktikum-services.ru/order")
 
     def input_user_data(self, user_data):
         self.element_set_data(self.User_Name, user_data[0])
@@ -54,10 +59,3 @@ class OrderPage(BasePage):
         actually_header = self.driver.find_element(*self.Confirm_Order_Header).text
         print(actually_header)
         assert header in actually_header
-
-
-
-
-
-
-
